@@ -120,21 +120,21 @@ class Fish(Image):
     # Поточна кількість XP риби
     hp_current = None
     
-    # Чи рухається риба ←
+    # Чи рухається риба
     is_moving = False
     
-    # Чи "росте" риба ←
+    # Чи "росте" риба
     is_pulsing = False
     
-    # Чи переможена риба ←
+    # Чи переможена риба
     is_defeated = False
     
-    # Кут обертання риби ←
+    # Кут обертання риби
     angle = NumericProperty(0)
 
     # Викликається після створення віджета
     def on_kv_post(self, base_widget):
-        self.base_size = self.size    # Запам'ятовуємо початковий розмір риби ←
+        self.base_size = self.size    # Запам'ятовуємо початковий розмір риби
         return super().on_kv_post(base_widget)
 
     # Отримання GameScreen через App
@@ -150,7 +150,7 @@ class Fish(Image):
         self.source = app.FISHES[self.fish_current]['source']
         self.hp_current = app.FISHES[self.fish_current]['hp']
         
-        # Скидання усіх параметрів старої риби перед появою нової ←
+        # Скидання усіх параметрів старої риби перед появою нової
         if not self.base_size:
             self.base_size = self.size
 
@@ -173,14 +173,14 @@ class Fish(Image):
             t='out_back'
         )
         
-        # Сигнал про "прибуття" риби на потрібне місце ←
+        # Сигнал про "прибуття" риби на потрібне місце
         def arrival(*args):
             self.is_moving = False
         
         anim_enter.bind(on_complete=arrival)
         anim_enter.start(self)
 
-    # Приховування переможеної риби  ← (новий)
+    # Приховування переможеної риби (новий)
     def defeated(self):
         w, h = self.size
         cx, cy = self.center
@@ -214,7 +214,7 @@ class Fish(Image):
         anim = Animation(opacity=0, duration=0.3)
         anim.start(self)'''
     
-    def pulse(self): # Збільшення/зменшення риби ←
+    def pulse(self): # Збільшення/зменшення риби
         w, h = self.size
         cx, cy = self.center
         
@@ -248,7 +248,7 @@ class Fish(Image):
         app = App.get_running_app()
         game = self.get_game()
         
-        # Ігноруємо клік, якщо він був поза рибою, риба рухається або вже переможена ←
+        # Ігноруємо клік, якщо він був поза рибою, риба рухається або вже переможена
         if (
             self.collide_point(*touch.pos) != True
             or self.opacity == 0
