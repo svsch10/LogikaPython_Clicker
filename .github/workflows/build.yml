@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v4
 
     - name: Set up Python
@@ -22,26 +22,28 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y git zip unzip openjdk-17-jdk \
-        build-essential autoconf libtool pkg-config \
+        build-essential autoconf automake libtool pkg-config \
         zlib1g-dev libncurses5-dev libffi-dev libssl-dev \
-        libstdc++6 libgtk-3-dev
+        libstdc++6
 
-    - name: Install Buildozer
+    - name: Install Buildozer and dependencies
       run: |
         pip install --upgrade pip
         pip install cython==0.29.36 buildozer
 
-    - name: Set environment variables (IMPORTANT FIX)
-      run: |
-        echo "ANDROIDSDK=$HOME/.buildozer/android/platform/android-sdk" >> $GITHUB_ENV
-        echo "ANDROIDNDK=$HOME/.buildozer/android/platform/android-ndk" >> $GITHUB_ENV
-        echo "ANDROIDAPI=33" >> $GITHUB_ENV
+    - name: Cache Buildozer (speed up builds)
+      uses: actions/cache@v4
+      with:
+        path: .buildozer
+        key: buildozer-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
+        restore-keys: |
+          buildozer-${{ runner.os }}-
 
-    - name: Build APK
+    - name: Build APK with Buildozer
       run: |
         buildozer -v android debug
 
-    - name: Upload APK
+    - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
         name: Clicker-APK
