@@ -5,9 +5,11 @@ from kivy.uix.image import Image
 from kivy.properties import NumericProperty
 from kivy.clock import Clock
 from kivy.animation import Animation    # Для ефекта анімації риби
+from kivy import platform
 
 # Розмір вікна під час запуску на ПК
-Window.size = (450, 700)
+if platform != 'android':
+    Window.size = (450, 700)
 
 # ===== ЕКРАН ГОЛОВНОГО МЕНЮ =====
 class MenuScreen(Screen):
