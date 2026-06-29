@@ -23,8 +23,8 @@ android.archs = arm64-v8a
 android.build_tools_version = 33.0.2
 android.ndk = 25b
 
-# щоб не тягнуло новий p4a (це критично!)
-p4a.branch = release-2023.09.16
+
+p4a.branch = master
 
 [buildozer]
 
