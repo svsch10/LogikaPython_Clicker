@@ -20,6 +20,9 @@ android.build_tools_version = 33.0.2
 android.api = 33
 android.minapi = 21
 android.archs = arm64-v8a
+android.build_tools_version = 33.0.2
+android.ndk = 25b
+p4a.branch = release-2023.09.16
 
 # дозволи (ти сказав без інтернету — тому мінімально)
 android.permissions =
